@@ -1,14 +1,12 @@
 FROM mcr.microsoft.com/azure-cli:latest
 
-ENV TERRAFORM_VERSION=0.11.13
+ENV TERRAFORM_VERSION=0.12.6
 
 VOLUME ["/data"]
 
 WORKDIR /data
 
 ENTRYPOINT ["/bin/ash"]
-
-#CMD ["--help"]
 
 RUN apk update && \
     apk add unzip wget && \
