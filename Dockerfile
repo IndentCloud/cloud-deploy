@@ -1,18 +1,24 @@
 FROM mcr.microsoft.com/azure-cli:latest
 
-ENV TERRAFORM_VERSION=0.12.6
+ENV TERRAFORM_VERSION="0.12.6"
+ENV KUBECTL_VERSION="v1.15.3"
+ENV HELM_VERSION="v2.14.3"
 
 VOLUME ["/data"]
 
 WORKDIR /data
 
-ENTRYPOINT ["/bin/ash"]
-
 RUN apk update && \
-    apk add unzip wget && \
+    apk add unzip wget bash && \
     cd /tmp && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin && \
+    wget -q https://storage.googleapis.com/kubernetes-release/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -O /usr/local/bin/kubectl && \
+    chmod +x /usr/local/bin/kubectl && \
+    wget -q https://storage.googleapis.com/kubernetes-helm/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm && \
+    chmod +x /usr/local/bin/helm && \
     rm -rf /tmp/* && \
     rm -rf /var/cache/apk/* && \
     rm -rf /var/tmp/*
+
+CMD ["bash"]
