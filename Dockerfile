@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/azure-cli:latest
+FROM google/cloud-sdk:alpine
 
 ENV TERRAFORM_VERSION="0.12.6"
 ENV KUBECTL_VERSION="v1.15.3"

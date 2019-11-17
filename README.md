@@ -1,3 +1,3 @@
-# terraform-azure
+# terraform-gcp
 
-Image containing Terraform and Azure CLI.
+Image containing Terraform and Google Cloud SDK.
