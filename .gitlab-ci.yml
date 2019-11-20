@@ -9,7 +9,7 @@ stages:
   - deploy
 
 variables:
-  IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+  IMAGE: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
 
 include:
   template: Container-Scanning.gitlab-ci.yml
@@ -25,6 +25,7 @@ deploy:
   stage: deploy
   script:
     - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" index.docker.io
+    - docker pull $IMAGE
     - docker tag $IMAGE index.docker.io/indentcloud/terraform-gcp
     - docker push
   only:
