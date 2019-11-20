@@ -25,9 +25,9 @@ build:
 deploy:
   stage: deploy
   script:
-    - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" index.docker.io
     - docker pull $LOCAL_IMAGE
     - docker tag $LOCAL_IMAGE $HUB_IMAGE
+    - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" index.docker.io
     - docker push $HUB_IMAGE
   only:
     - master
