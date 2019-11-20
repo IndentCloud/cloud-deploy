@@ -3,6 +3,11 @@ image: docker:latest
 services:
   - docker:dind
 
+stages:
+  - build
+  - test
+  - deploy
+
 include:
   template: Container-Scanning.gitlab-ci.yml
 
