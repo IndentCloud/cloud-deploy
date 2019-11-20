@@ -27,6 +27,6 @@ deploy:
     - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" index.docker.io
     - docker pull $IMAGE
     - docker tag $IMAGE index.docker.io/indentcloud/terraform-gcp
-    - docker push
+    - docker push $IMAGE
   only:
     - master
