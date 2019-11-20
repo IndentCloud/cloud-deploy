@@ -8,24 +8,23 @@ stages:
   - test
   - deploy
 
+variables:
+  IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
 include:
   template: Container-Scanning.gitlab-ci.yml
-
-before_script:
-  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-
-build-master:
-  stage: build
-  script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
-  only:
-    - master
 
 build:
   stage: build
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-  except:
+    - docker build --pull -t $IMAGE .
+    - docker push $IMAGE
+
+deploy:
+  stage: deploy
+  script:
+    - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" docker.io
+    - docker tag $IMAGE index.docker.io/indentcloud/terraform-gcp
+    - docker push
+  only:
     - master
