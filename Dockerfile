@@ -1,4 +1,4 @@
-FROM google/cloud-sdk:latest
+FROM google/cloud-sdk:alpine
 
 ENV TERRAFORM_VERSION="0.12.21"
 ENV KUBECTL_VERSION="v1.17.3"
@@ -11,8 +11,8 @@ WORKDIR /data
 
 
 
-RUN apt update && \
-    apt install -y wget unzip tar && \
+RUN apk update && \
+    apk add unzip wget bash && \
     cd /tmp && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin && \
