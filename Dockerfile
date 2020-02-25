@@ -20,6 +20,11 @@ RUN apk update && \
     chmod +x /usr/local/bin/kubectl && \
     wget -q https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm && \
     chmod +x /usr/local/bin/helm && \
+    mkdir -p ~/.terraform.d/plugins && \
+    curl -Ls https://api.github.com/repos/gavinbunney/terraform-provider-kubectl/releases/latest \
+    | jq -r ".assets[] | select(.browser_download_url | contains(\"$(uname -s | tr A-Z a-z)\")) | select(.browser_download_url | contains(\"amd64\")) | .browser_download_url" \
+    | xargs -n 1 curl -Lo ~/.terraform.d/plugins/terraform-provider-kubectl && \
+    chmod +x ~/.terraform.d/plugins/terraform-provider-kubectl && \
     rm -rf /tmp/* && \
     rm -rf /var/cache/apk/* && \
     rm -rf /var/tmp/*
