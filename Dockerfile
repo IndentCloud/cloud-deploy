@@ -3,7 +3,7 @@ FROM google/cloud-sdk:alpine
 ENV TERRAFORM_VERSION="0.12.21"
 ENV KUBECTL_VERSION="v1.17.3"
 ENV HELM_VERSION="v3.1.1"
-ENV TERRAFORM_PROVIDER_KUBECTL_VERSION="v1.2.1"
+ENV TERRAFORM_PROVIDER_KUBECTL_VERSION="v0.2.0"
 
 VOLUME ["/data"]
 
@@ -22,8 +22,8 @@ RUN apk update && \
     wget -q https://get.helm.sh/helm-${HELM_VERSION}-linux-amd64.tar.gz -O - | tar -xzO linux-amd64/helm > /usr/local/bin/helm && \
     chmod +x /usr/local/bin/helm && \
     mkdir -p ~/.terraform.d/plugins && \
-    wget -q https://github.com/gavinbunney/terraform-provider-kubectl/releases/download/${TERRAFORM_PROVIDER_KUBECTL_VERSION}/terraform-provider-kubectl-linux-amd64 -O ~/.terraform.d/plugins/terraform-provider-kubectl && \
-    chmod +x ~/.terraform.d/plugins/terraform-provider-kubectl && \
+    wget -q  https://github.com/nabancard/terraform-provider-kubernetes-yaml/releases/download/${TERRAFORM_PROVIDER_KUBECTL_VERSION}/terraform-provider-k8sraw-linux-amd64 -O ~/.terraform.d/plugins/terraform-provider-k8sraw && \
+    chmod +x ~/.terraform.d/plugins/terraform-provider-k8sraw && \
     rm -rf /tmp/* && \
     rm -rf /var/cache/apk/* && \
     rm -rf /var/tmp/*
