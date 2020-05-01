@@ -1,8 +1,8 @@
 FROM google/cloud-sdk:alpine
 
 ENV TERRAFORM_VERSION="0.12.24"
-ENV KUBECTL_VERSION="v1.17.3"
-ENV HELM_VERSION="v3.1.1"
+ENV KUBECTL_VERSION="v1.18.2"
+ENV HELM_VERSION="v3.2.0"
 ENV TERRAFORM_PROVIDER_KUBECTL_VERSION="v0.2.0"
 
 VOLUME ["/data"]
@@ -12,7 +12,8 @@ WORKDIR /data
 
 
 
-RUN apk update && \
+RUN gcloud components install beta && \
+    apk update && \
     apk add unzip wget bash && \
     cd /tmp && \
     wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
@@ -28,4 +29,4 @@ RUN apk update && \
     rm -rf /var/cache/apk/* && \
     rm -rf /var/tmp/*
 
-CMD ["bash"]
+CMD ["bash"]k
