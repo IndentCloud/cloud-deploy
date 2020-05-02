@@ -1,3 +1,3 @@
-# terraform-gcp
+# cloud-deploy
 
-Image containing Terraform and Google Cloud SDK.
+Docker image used for deploying infrastructure & applications to Google Cloud

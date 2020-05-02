@@ -10,7 +10,7 @@ stages:
 
 variables:
   LOCAL_IMAGE: $CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG:$CI_COMMIT_SHA
-  HUB_IMAGE: docker.io/indentcloud/terraform-gcp
+  HUB_IMAGE: docker.io/indentcloud/cloud-deploy
 
 include:
   template: Container-Scanning.gitlab-ci.yml
